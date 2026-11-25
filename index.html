@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#122f26">
+  <meta name="description" content="Veja uma ideia virar um sistema de achados e perdidos na Feira de Profissões do CETI Professor Darcy Araújo.">
+  <title>Achados do Darcy | CETI Professor Darcy Araújo</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#inicio"><span class="brand-icon" aria-hidden="true">✦</span><span>CETI Professor Darcy Araújo<small>Desenvolvimento de Sistemas</small></span></a>
+      <a class="nav-link" href="#demonstracao">Experimentar o app</a>
+    </div>
+  </header>
+
+  <main id="inicio" class="wrap">
+    <section class="hero" aria-labelledby="main-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Feira de Profissões</p>
+        <h1 id="main-title">Achados<br> <em>do Darcy</em></h1>
+        <p>Uma garrafa foi encontrada no pátio. Como avisar quem perdeu? Veja como um achado no pátio vira um app.</p>
+        <a class="primary" href="#demonstracao">Começar a demonstração</a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="spark large">✦</span><span class="spark small">✧</span><span class="spark low">✦</span>
+        <div class="orbit"></div>
+        <div class="sample">
+          <div class="sample-top"><span>Achados e perdidos</span><b>•••</b></div>
+          <div class="sample-item"><div class="sample-icon">✦</div><div><strong>Garrafa azul</strong><span>Encontrada no pátio</span></div></div>
+          <div class="sample-foot">Esboço da tela do aplicativo</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo" id="demonstracao" aria-labelledby="demo-title">
+      <div class="demo-head">
+        <div><h2 id="demo-title">Achados e perdidos</h2><p>Veja o protótipo, cadastre um objeto fictício e teste a busca.</p></div>
+        <button type="button" class="secondary" id="reset">Reiniciar demonstração</button>
+      </div>
+
+      <div class="stage" role="tablist" aria-label="Etapas da demonstração">
+        <button type="button" id="tab-prototype" role="tab" aria-selected="true" aria-controls="prototype">Protótipo</button>
+        <button type="button" id="tab-app" role="tab" aria-selected="false" aria-controls="app" tabindex="-1">Teste ao vivo</button>
+        <button type="button" id="tab-explain" role="tab" aria-selected="false" aria-controls="explain" tabindex="-1">Como funciona</button>
+      </div>
+
+      <section id="prototype" role="tabpanel" aria-labelledby="tab-prototype" tabindex="0" class="panel prototype">
+        <div>
+          <h3>O que a tela precisa ter?</h3>
+          <p>Quem encontrou um objeto precisa dizer <strong>o que é</strong>, <strong>onde estava</strong> e <strong>qual é a categoria</strong>. Quem perdeu pode filtrar a lista para encontrá-lo.</p>
+          <button type="button" class="primary" data-step="tab-app">Testar o aplicativo</button>
+        </div>
+        <div class="wireframe" aria-label="Esboço com as áreas de cadastro e busca">
+          <div class="wire-title">Cadastro de objeto</div>
+          <div class="wire-fields"><span>Objeto</span><span>Local</span><span>Categoria</span></div>
+          <div class="wire-button">Cadastrar</div>
+          <div class="wire-title">Busca</div>
+          <div class="wire-fields"><span>Filtrar por categoria</span><span>Resultados</span></div>
+        </div>
+      </section>
+
+      <section id="app" role="tabpanel" aria-labelledby="tab-app" tabindex="0" class="panel app" hidden>
+        <form id="register" novalidate>
+          <h3>Cadastrar objeto</h3>
+          <p class="hint">Use dados fictícios. Exemplo: garrafa azul, pátio, garrafas.</p>
+          <label for="item-name">Nome do objeto</label>
+          <input id="item-name" maxlength="60" required placeholder="Ex.: garrafa azul" aria-describedby="form-feedback">
+          <label for="item-place">Onde foi encontrado?</label>
+          <input id="item-place" maxlength="60" required placeholder="Ex.: pátio" aria-describedby="form-feedback">
+          <label for="item-category">Categoria</label>
+          <select id="item-category" required aria-describedby="form-feedback">
+            <option value="">Selecione uma categoria</option>
+            <option value="Garrafas">Garrafas</option>
+            <option value="Material escolar">Material escolar</option>
+            <option value="Acessórios">Acessórios</option>
+            <option value="Outros">Outros</option>
+          </select>
+          <div class="actions"><button type="submit" class="primary">Cadastrar</button><button type="button" id="fill" class="secondary">Preencher exemplo</button></div>
+          <p id="form-feedback" class="feedback" role="status"></p>
+        </form>
+        <div class="catalog">
+          <h3>Objetos encontrados</h3>
+          <label for="filter">Filtrar por categoria</label>
+          <select id="filter">
+            <option value="">Todas as categorias</option>
+            <option value="Garrafas">Garrafas</option>
+            <option value="Material escolar">Material escolar</option>
+            <option value="Acessórios">Acessórios</option>
+            <option value="Outros">Outros</option>
+          </select>
+          <p id="catalog-count" class="hint" role="status"></p>
+          <ul id="items" class="items"></ul>
+          <button type="button" class="secondary next" data-step="tab-explain">Ver como funciona</button>
+        </div>
+      </section>
+
+      <section id="explain" role="tabpanel" aria-labelledby="tab-explain" tabindex="0" class="panel" hidden>
+        <h3>O que aconteceu por trás da tela?</h3>
+        <dl class="explain">
+          <div><dt>Interface</dt><dd>O formulário recebe o nome do objeto, o local e a categoria.</dd></div>
+          <div><dt>Regra do sistema</dt><dd>Se faltar um campo, o cadastro é bloqueado e o sistema indica o que precisa ser preenchido.</dd></div>
+          <div><dt>Dados</dt><dd>O objeto entra na lista, e o filtro mostra só a categoria escolhida. Nesta demonstração, a lista fica na memória da página. Um sistema real poderia usar um banco de dados.</dd></div>
+        </dl>
+        <button type="button" class="secondary" data-step="tab-app" data-try-validation>Testar um cadastro sem nome</button>
+      </section>
+      <p id="demo-status" class="sr-only" role="status"></p>
+      <noscript><p class="panel">Ative o JavaScript no navegador para testar a demonstração.</p></noscript>
+    </section>
+  </main>
+  <footer class="wrap footer"><span>CETI Professor Darcy Araújo</span><span>Demonstração com dados fictícios</span></footer>
+</body>
+</html>
